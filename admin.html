@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMSG G-7/1 - Admin Dashboard</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,600;0,800;1,500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-body">
+
+    <!-- Passcode Login Screen -->
+    <div class="admin-login-wrapper" id="loginWrapper">
+        <div class="admin-login-card">
+            <i class="fa-solid fa-user-shield lock-icon"></i>
+            <h2>IMSG Administration</h2>
+            <p>Please enter the school administration passcode to access dashboard settings.</p>
+            <input type="password" id="adminPasscode" placeholder="••••••••" autofocus>
+            <button class="btn btn-primary btn-glow" id="loginBtn" style="width: 100%;">Access Dashboard</button>
+            <div id="loginError" class="error-msg" style="display: none; margin-top: 1rem; text-align: center;">Invalid passcode. Please try again.</div>
+            <a href="index.html" style="display: block; margin-top: 1.5rem; color: var(--accent-primary); font-weight: 600; font-size: 0.9rem; text-decoration: none;"><i class="fa-solid fa-arrow-left"></i> Back to School Website</a>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Main Panel -->
+    <div class="admin-dashboard-container" id="dashboardContainer">
+        <div class="admin-header">
+            <div>
+                <h1><i class="fa-solid fa-sliders"></i> School Settings Dashboard</h1>
+                <p style="color: var(--text-secondary); margin-top: 0.25rem;">Update real-time announcements, school timing, admissions status, and bus schedules.</p>
+            </div>
+            <div>
+                <a href="index.html" class="btn btn-secondary" style="margin-right: 0.5rem;"><i class="fa-solid fa-eye"></i> View Site</a>
+                <button class="btn btn-primary" id="logoutBtn" style="background: #dc2626;"><i class="fa-solid fa-right-from-bracket"></i> Lock</button>
+            </div>
+        </div>
+
+        <form id="adminSettingsForm">
+            <div class="admin-grid">
+                
+                <!-- Section 1: Announcement Ticker -->
+                <div class="admin-section-card">
+                    <h3><i class="fa-solid fa-bullhorn"></i> Announcements News Ticker</h3>
+                    <div class="admin-form-group">
+                        <label for="ann1">Announcement Line 1 (e.g. Admission status)</label>
+                        <input type="text" id="ann1" required placeholder="🚫 Admission closed.">
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="ann2">Announcement Line 2 (e.g. Holidays/vacation info)</label>
+                        <input type="text" id="ann2" required placeholder="☀️ Summer vacation is currently ongoing.">
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="ann3">Announcement Line 3 (e.g. Reopening/general updates)</label>
+                        <input type="text" id="ann3" required placeholder="📅 School will reopen from 1st August 2026.">
+                    </div>
+                </div>
+
+                <!-- Section 2: Admissions status -->
+                <div class="admin-section-card">
+                    <h3><i class="fa-solid fa-user-plus"></i> Admissions Status & Instructions</h3>
+                    <div class="admin-form-group">
+                        <label for="admStatus">Admission Status</label>
+                        <select id="admStatus">
+                            <option value="open">Open</option>
+                            <option value="closed">Closed</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="admDetails">Admissions Instructions / Chatbot details</label>
+                        <textarea id="admDetails" required rows="4" placeholder="Detail active sections, form details, or date rules..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Section 3: School hours -->
+                <div class="admin-section-card">
+                    <h3><i class="fa-solid fa-clock"></i> School Hours & Recess Timings</h3>
+                    <div class="admin-form-group row-split">
+                        <div>
+                            <label for="timeMonThu">Monday – Thursday</label>
+                            <input type="text" id="timeMonThu" required placeholder="8:00 AM – 2:00 PM">
+                        </div>
+                        <div>
+                            <label for="timeFri">Friday Hours</label>
+                            <input type="text" id="timeFri" required placeholder="8:00 AM – 12:00 PM">
+                        </div>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="timeWeekend">Weekend Holidays</label>
+                        <input type="text" id="timeWeekend" required placeholder="Closed (Weekly Holiday)">
+                    </div>
+                    <div class="admin-form-group row-split">
+                        <div>
+                            <label for="timeAssembly">Morning Assembly</label>
+                            <input type="text" id="timeAssembly" required placeholder="Begins at 7:55 AM">
+                        </div>
+                        <div>
+                            <label for="timeRecess">Recess/Lunch Break</label>
+                            <input type="text" id="timeRecess" required placeholder="11:00 AM – 11:30 AM">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Bus & Transport Services -->
+                <div class="admin-section-card">
+                    <h3><i class="fa-solid fa-bus"></i> School Bus & Transport Settings</h3>
+                    <div class="admin-form-group row-split">
+                        <div>
+                            <label for="busMorning">Morning Pick-up</label>
+                            <input type="text" id="busMorning" required placeholder="7:00 AM – 7:45 AM">
+                        </div>
+                        <div>
+                            <label for="busAfternoon">Afternoon Drop-off</label>
+                            <input type="text" id="busAfternoon" required placeholder="2:15 PM – 3:00 PM">
+                        </div>
+                    </div>
+                    <div class="admin-form-group row-split">
+                        <div>
+                            <label for="busFee">Monthly Bus Fee</label>
+                            <input type="text" id="busFee" required placeholder="PKR 2,500">
+                        </div>
+                        <div>
+                            <label for="busStatus">Bus Availability Status</label>
+                            <select id="busStatus">
+                                <option value="Active">Active (Seats Available)</option>
+                                <option value="Full">Full (Waiting List)</option>
+                                <option value="Suspended">Suspended</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="busRoutes">Active Covered Routes (comma separated)</label>
+                        <input type="text" id="busRoutes" required placeholder="G-6, G-7, G-8, G-9, F-6, F-7, Islamabad Highway">
+                    </div>
+                </div>
+
+                <!-- Section 5: Principal message -->
+                <div class="admin-section-card" style="grid-column: span 1;">
+                    <h3><i class="fa-solid fa-user-tie"></i> Principal Message & Info</h3>
+                    <div class="admin-form-group row-split">
+                        <div>
+                            <label for="prName">Principal Name</label>
+                            <input type="text" id="prName" required placeholder="Ms. Aliya Sadaf">
+                        </div>
+                        <div>
+                            <label for="prSigName">Signature Name</label>
+                            <input type="text" id="prSigName" required placeholder="Aliya Sadaf">
+                        </div>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="prEdu">Credentials / Education</label>
+                        <input type="text" id="prEdu" required placeholder="M.A English, M.Phil">
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="prMsg">Principal's Welcome Message</label>
+                        <textarea id="prMsg" required rows="5" placeholder="Principal's message text..."></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Action buttons bar -->
+            <div class="admin-actions-bar">
+                <button type="button" class="btn btn-secondary" id="resetBtn" style="background: #64748b; color: white;"><i class="fa-solid fa-rotate-left"></i> Reset Defaults</button>
+                <button type="submit" class="btn btn-primary btn-glow" style="padding: 0.85rem 2.5rem;"><i class="fa-solid fa-floppy-disk"></i> Save Settings</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Success toast -->
+    <div class="admin-toast" id="successToast">
+        <i class="fa-solid fa-circle-check" style="font-size: 1.25rem;"></i>
+        <span>Settings Saved Successfully!</span>
+    </div>
+
+    <!-- Controller Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginWrapper = document.getElementById('loginWrapper');
+            const dashboardContainer = document.getElementById('dashboardContainer');
+            const passcodeField = document.getElementById('adminPasscode');
+            const loginBtn = document.getElementById('loginBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const loginError = document.getElementById('loginError');
+            
+            const settingsForm = document.getElementById('adminSettingsForm');
+            const resetBtn = document.getElementById('resetBtn');
+            const successToast = document.getElementById('successToast');
+
+            // Default Hardcoded values for fallback/reset
+            const defaultSettings = {
+                announcements: [
+                    "🚫 Admission closed.",
+                    "☀️ Summer vacation is currently ongoing.",
+                    "📅 School will reopen from 1st August 2026."
+                ],
+                admissionsStatus: "closed",
+                admissionsDetails: "Admissions are currently closed. The school is closed for summer vacations and will reopen on 1st August 2026.",
+                timingMonThu: "8:00 AM – 2:00 PM",
+                timingFri: "8:00 AM – 12:00 PM",
+                timingWeekend: "Closed (Weekly Holiday)",
+                timingAssembly: "Begins at 7:55 AM (punctuality is mandatory)",
+                timingRecess: "11:00 AM – 11:30 AM",
+                busMorningTime: "7:00 AM – 7:45 AM",
+                busAfternoonTime: "2:15 PM – 3:00 PM",
+                busMonthlyFee: "PKR 2,500",
+                busStatus: "Active",
+                busActiveRoutes: "G-6, G-7, G-8, G-9, F-6, F-7, Islamabad Highway",
+                principalName: "Ms. Aliya Sadaf",
+                principalSigName: "Aliya Sadaf",
+                principalEdu: "M.A English, M.Phil",
+                principalMsg: "It is my privilege to welcome you to Islamabad Model School for Girls, G-7/1. Our vision is to nurture and empower young minds to become confident, analytical, and responsible citizens of tomorrow. We believe that education is not merely about academic scores, but about developing character, sportsmanship, and creativity. By providing a safe, engaging, and modern environment opposite the Bhutto Cricket Ground, we ensure that every girl gets the chance to discover her potential, fly to new worlds, and make a true difference in society."
+            };
+
+            // Login protection controller
+            function checkAuth() {
+                const sessionAuth = sessionStorage.getItem('adminAuthed');
+                if (sessionAuth === 'true') {
+                    showDashboard();
+                }
+            }
+
+            function attemptLogin() {
+                const passcode = passcodeField.value.trim();
+                // Default passcode: admin123
+                if (passcode === 'admin123') {
+                    sessionStorage.setItem('adminAuthed', 'true');
+                    showDashboard();
+                } else {
+                    loginError.style.display = 'block';
+                    passcodeField.value = '';
+                    passcodeField.focus();
+                }
+            }
+
+            function showDashboard() {
+                loginWrapper.style.display = 'none';
+                dashboardContainer.style.display = 'block';
+                loadSettings();
+            }
+
+            loginBtn.addEventListener('click', attemptLogin);
+            passcodeField.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') attemptLogin();
+            });
+
+            logoutBtn.addEventListener('click', () => {
+                sessionStorage.removeItem('adminAuthed');
+                window.location.reload();
+            });
+
+            // Settings Manager
+            function loadSettings() {
+                const stored = localStorage.getItem('schoolSettings');
+                let settings = defaultSettings;
+                
+                if (stored) {
+                    try {
+                        settings = JSON.parse(stored);
+                    } catch(e) {
+                        settings = defaultSettings;
+                    }
+                }
+
+                // Populate Form Fields
+                document.getElementById('ann1').value = settings.announcements[0] || '';
+                document.getElementById('ann2').value = settings.announcements[1] || '';
+                document.getElementById('ann3').value = settings.announcements[2] || '';
+                
+                document.getElementById('admStatus').value = settings.admissionsStatus || 'closed';
+                document.getElementById('admDetails').value = settings.admissionsDetails || '';
+                
+                document.getElementById('timeMonThu').value = settings.timingMonThu || '';
+                document.getElementById('timeFri').value = settings.timingFri || '';
+                document.getElementById('timeWeekend').value = settings.timingWeekend || '';
+                document.getElementById('timeAssembly').value = settings.timingAssembly || '';
+                document.getElementById('timeRecess').value = settings.timingRecess || '';
+                
+                document.getElementById('busMorning').value = settings.busMorningTime || '';
+                document.getElementById('busAfternoon').value = settings.busAfternoonTime || '';
+                document.getElementById('busFee').value = settings.busMonthlyFee || '';
+                document.getElementById('busStatus').value = settings.busStatus || 'Active';
+                document.getElementById('busRoutes').value = settings.busActiveRoutes || '';
+                
+                document.getElementById('prName').value = settings.principalName || '';
+                document.getElementById('prSigName').value = settings.principalSigName || '';
+                document.getElementById('prEdu').value = settings.principalEdu || '';
+                document.getElementById('prMsg').value = settings.principalMsg || '';
+            }
+
+            settingsForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const updatedSettings = {
+                    announcements: [
+                        document.getElementById('ann1').value.trim(),
+                        document.getElementById('ann2').value.trim(),
+                        document.getElementById('ann3').value.trim()
+                    ],
+                    admissionsStatus: document.getElementById('admStatus').value,
+                    admissionsDetails: document.getElementById('admDetails').value.trim(),
+                    timingMonThu: document.getElementById('timeMonThu').value.trim(),
+                    timingFri: document.getElementById('timeFri').value.trim(),
+                    timingWeekend: document.getElementById('timeWeekend').value.trim(),
+                    timingAssembly: document.getElementById('timeAssembly').value.trim(),
+                    timingRecess: document.getElementById('timeRecess').value.trim(),
+                    busMorningTime: document.getElementById('busMorning').value.trim(),
+                    busAfternoonTime: document.getElementById('busAfternoon').value.trim(),
+                    busMonthlyFee: document.getElementById('busFee').value.trim(),
+                    busStatus: document.getElementById('busStatus').value,
+                    busActiveRoutes: document.getElementById('busRoutes').value.trim(),
+                    principalName: document.getElementById('prName').value.trim(),
+                    principalSigName: document.getElementById('prSigName').value.trim(),
+                    principalEdu: document.getElementById('prEdu').value.trim(),
+                    principalMsg: document.getElementById('prMsg').value.trim()
+                };
+
+                localStorage.setItem('schoolSettings', JSON.stringify(updatedSettings));
+                
+                // Show Success Toast
+                successToast.classList.add('show');
+                setTimeout(() => {
+                    successToast.classList.remove('show');
+                }, 3000);
+            });
+
+            resetBtn.addEventListener('click', () => {
+                if (confirm("Are you sure you want to reset all dashboard settings to default school values?")) {
+                    localStorage.setItem('schoolSettings', JSON.stringify(defaultSettings));
+                    loadSettings();
+                    
+                    // Show success alert
+                    successToast.querySelector('span').textContent = "Settings Reset to Defaults!";
+                    successToast.classList.add('show');
+                    setTimeout(() => {
+                        successToast.classList.remove('show');
+                        successToast.querySelector('span').textContent = "Settings Saved Successfully!";
+                    }, 3000);
+                }
+            });
+
+            // Initialize Check
+            checkAuth();
+        });
+    </script>
+</body>
+</html>
